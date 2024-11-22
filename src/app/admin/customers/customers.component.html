@@ -1,0 +1,51 @@
+<h2>Customer Management</h2>
+<br/>
+
+<div class="mb-3">
+  <strong>Search by phone number:</strong> 
+  <input type="number" id="phoneNumber" [formControl]="phoneNumber" class="ms-2"/>
+  <button type="button" class="btn btn-primary ms-2" (click)="onSearch()">Search</button>
+</div>
+
+ <!-- Error message display -->
+ @if (errorMessage) {
+  <div class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+ }
+ 
+<table class="table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>DOB</th>
+      <th>Earned Point</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (customer of customers; track customer.id) {
+      <tr>
+        <td>{{ customer.firstName }}</td>
+        <td>{{ customer.lastName }}</td>
+        <td>{{ customer.phoneNumber }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.dob | date: 'MM/dd/yyyy'}}</td>
+        <td>{{ customer.earnedPoint == null ? 0 : customer.earnedPoint }}</td>
+        <td>
+          <button (click)="onViewAppointment(customer.id, customer.firstName, customer.lastName)" 
+            class="btn btn-primary me-2">View appointments
+          </button>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="6">There are no customers yet.</td>
+      </tr>
+    }
+  </tbody>
+</table>
+  

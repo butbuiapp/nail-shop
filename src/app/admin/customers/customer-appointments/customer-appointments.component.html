@@ -1,0 +1,25 @@
+<h2>Appointments for customer {{ firstName + ' ' + lastName }}</h2>
+<br/>
+
+ <!-- Error message display -->
+ @if (errorMessage) {
+  <div class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+ }
+ 
+ <div class="appointments-container">
+  <!-- Loop through each appointment -->
+  <div *ngIf="appointments?.length">
+    <div *ngFor="let appointment of appointments; trackBy: trackByAppointmentId" 
+      class="appointment-card mb-3"  [ngClass]="{'booked': isBooked(appointment.status)}">
+      <app-appointment [appointment]="appointment" [isRead]="isRead"></app-appointment>
+    </div>
+  </div>
+
+  <!-- Empty State Message -->
+  <div *ngIf="appointments.length === 0" class="no-appointments">
+    <p>There are no appointments yet.</p>
+  </div>
+</div>
+

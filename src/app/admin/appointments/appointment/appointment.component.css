@@ -1,0 +1,19 @@
+.appointment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+.invoice-details {
+  margin-top: 1rem;
+}
+
+.no-appointments {
+  text-align: center;
+  color: #888;
+}
+
+p {
+  margin: 0 !important;
+}

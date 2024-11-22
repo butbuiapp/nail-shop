@@ -1,0 +1,31 @@
+  <!-- Sidebar Menu -->
+  <div class="sidebar bg-navbar p-3">
+    <div class="text-center">
+      <header class="mb-2">
+        <img src="assets/logo.png" alt="A nail shop" class="img-fluid" />
+      </header>
+      <div class="mt-2 mb-4">
+        <span>{{loginUser}}</span><br />
+        <span>(Earned Points: {{ earnedPoint }})</span>
+        <button type="button" class="btn btn-primary mt-2 w-100" (click)="logout()">Logout</button>
+      </div>
+    </div>
+    <nav class="navbar">
+
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="customer/new-appointment">Book Appointment</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="customer/my-appointments">My Appointments</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="customer/profile">My Profile</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="customer/change-password">Change Password</a>
+        </li>
+      </ul>
+      
+    </nav>
+  </div>

@@ -1,0 +1,71 @@
+<section>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="mb-2 text-center mt-3" >
+          <img src="assets/logo.png" alt="Logo" class="img-fluid" style="max-width: 150px;">
+        </div>
+
+        <div class="card p-5 pt-3 pb-3 shadow" style="max-width: 400px; margin: auto;">
+          
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+            <h3 class="fw-normal mb-2" style="letter-spacing: 1px;">Log in</h3>
+
+            <!-- Error message display -->
+            @if (errorMessage) {
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+            }
+            <!-- Phone Number Field -->
+            <div class="form-outline mb-4">
+              <label for="phoneNumber">Phone number</label>
+              <input
+                type="text"
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                class="form-control" autocomplete="off"
+              />
+              <!-- Phone Number Validation Messages -->
+              <div *ngIf="loginForm.get('phoneNumber')?.touched && loginForm.get('phoneNumber')?.invalid" class="text-danger mt-1">
+                <small *ngIf="loginForm.get('phoneNumber')?.errors?.['required']">
+                  Phone number is required.
+                </small>
+                <small *ngIf="loginForm.get('phoneNumber')?.errors?.['required']">
+                  Phone number is required.
+                </small>
+                <small *ngIf="loginForm.get('phoneNumber')?.errors?.['pattern']">Phone Number must contain only
+                  digits.
+                </small>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-outline mb-4">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                class="form-control" autocomplete="current-password"
+              />
+              <!-- Password Validation Messages -->
+              <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-danger mt-1">
+                <small *ngIf="loginForm.get('password')?.errors?.['required']">
+                  Password is required.
+                </small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+
+            <!-- Register buttons -->
+            <div class="text-center mt-3">
+              <p>Not a member? <a href="/customer/register" class="fw-bold text-body">Register</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,80 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+    <h3 class="fw-normal mb-5" style="letter-spacing: 1px;">
+      Update Appointment
+    </h3>
+
+    <!-- Error/Info Message Display -->
+    @if (errorMessage) {
+      <div class="alert alert-danger mb-3" [innerHTML]="errorMessage">
+      </div>
+    }
+    <div *ngIf="infoMessage" class="alert alert-info mb-3">
+      {{ infoMessage }}
+    </div>
+
+    <div class="card p-5 pt-3 pb-3 shadow" style="width: 700px; margin: auto;">
+      <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+        <!-- Date Field -->
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input id="date" type="date" formControlName="date" class="form-control" [attr.min]="today" />
+          <div *ngIf="appointmentForm.get('date')?.touched && appointmentForm.get('date')?.invalid" class="text-danger">
+            Date is required.
+          </div>
+        </div>
+
+        <!-- Time Field -->
+        <div class="form-group">
+          <label for="time">Time</label>
+          <input id="time" type="time" formControlName="time" class="form-control" step="300" min="08:00" max="20:00" />
+          <div *ngIf="appointmentForm.get('time')?.touched && appointmentForm.get('time')?.invalid" class="text-danger">
+            Time is required.
+          </div>
+        </div>
+
+        <!-- Technician Dropdown -->
+        <div class="form-group">
+          <label for="employee">Choose your favorite technician</label>
+          <select id="employee" formControlName="employee" class="form-control">
+            <option *ngFor="let employee of employees" [value]="employee.id">
+              {{ employee.firstName + ' ' + employee.lastName }}
+            </option>
+          </select>
+          <div *ngIf="appointmentForm.get('employee')?.touched && appointmentForm.get('employee')?.invalid"
+            class="text-danger">
+            Please select a technician.
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="form-group">
+          <div class="d-flex align-items-center justify-content-between">
+            <label>Choose services</label>
+            <label class="text-danger">Total Amount: ${{ totalAmount }}</label>
+          </div>
+          <div id="services">
+            <div *ngFor="let service of services">
+              <div class="checkbox-inline">
+                <input type="checkbox" [id]="'service-' + service.id" [checked]="isServiceSelected(service)"
+                  (change)="onServiceChange($event, service)" />
+                <label class="checkbox-label" [for]="'service-' + service.id">{{ service.name }} - ${{ service.price
+                  }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" formControlName="notes" class="form-control" maxlength="255"></textarea>
+        </div>
+
+        <div class="mt-3">
+          <button type="button" (click)="onCancel()" class="btn btn-secondary me-2">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid">Update</button>
+        </div>
+      </form>
+    </div>
+</dialog>

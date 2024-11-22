@@ -1,0 +1,52 @@
+
+<!-- Appointment Information -->
+<div class="appointment-details">
+  <p>
+    <strong>Date:</strong> {{ (appointment().date | date: 'MM/dd/yyyy') + ' ' + appointment().time}}
+    <span class="ms-5">
+      <strong>Customer:</strong> 
+      {{ appointment().customer.firstName + ' ' + appointment().customer.lastName }}
+      ({{ appointment().customer.phoneNumber }})
+    </span>
+    <span class="ms-5">
+      <strong>Technician:</strong> 
+      {{ appointment().technician.firstName + ' ' + appointment().technician.lastName }}
+      ({{ appointment().technician.phoneNumber }})
+    </span>
+    <span class="ms-5">
+      <strong>Status:</strong> {{ appointment().status }}
+    </span>
+  </p>
+  <p><strong>Notes:</strong> {{ appointment().notes }}</p>
+  <div class="text-center">
+    <button class="btn btn-primary" (click)="toggleInvoice(appointment().id)">
+      {{ showInvoiceMap[appointment().id] ? 'Hide Invoice' : 'View Invoice' }}
+    </button>
+    @if (appointment().status == AppointmentStatusEnum.BOOKED) {
+        <button class="btn btn-primary ms-2" (click)="updateAppointment()">Update Appointment</button>
+        <button class="btn btn-secondary ms-2" (click)="cancelAppointment()">Cancel Appointment</button>
+    }
+  </div>
+ 
+</div>
+
+<!-- Collapsible Invoice Section -->
+<div *ngIf="showInvoiceMap[appointment().id]" class="invoice-details">
+  <div class="card card-body">
+    <!-- Invoice Details -->
+    <div class="d-flex align-items-center justify-content-between">
+      <h5>Invoice Details</h5>
+      <p class="text-danger"><strong>Total Amount:</strong> {{ appointment().invoice?.totalAmount | currency }}</p>
+                  
+    </div>
+    <p><strong>Issued Date:</strong> {{ appointment().invoice?.issuedDate | date: 'short' }}</p>    
+    <p><strong>Status:</strong> {{ appointment().invoice?.status }}</p>
+    <p *ngIf="appointment().invoice?.paidDate"><strong>Paid Date:</strong> {{ appointment().invoice?.paidDate | date: 'short' }}</p>
+    <div *ngIf="appointment().invoice?.services">
+      <strong>Services:</strong>
+      <ul>
+        <li *ngFor="let service of appointment().invoice?.services">{{ service.name }} - {{ service.price | currency }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
