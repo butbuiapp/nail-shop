@@ -1,0 +1,21 @@
+.appointments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.appointment-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.no-appointments {
+  text-align: center;
+  color: #888;
+}
+
+.booked {
+  background-color: #fceaf0;
+}

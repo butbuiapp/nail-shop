@@ -1,0 +1,20 @@
+.form-row {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-label {
+  margin: 0;
+  font-weight: normal;
+}

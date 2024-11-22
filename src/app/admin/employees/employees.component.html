@@ -1,0 +1,58 @@
+<h2>Employee Management</h2>
+
+@if (isAddingEmployee) {
+  <app-new-employee 
+    (close)="onClose()" 
+    (employeeAdded)="onAdded()"
+    [editingEmployee]="editingEmployee" />
+}
+
+<button (click)="onStartAdd()" class="btn btn-primary font-weight-bold">Add new employee</button>
+<br/><br/>
+
+ <!-- Error message display -->
+ @if (errorMessage) {
+  <div class="alert alert-danger" [innerHTML]="errorMessage">
+  </div>
+ }
+
+ @if (inforMessage) {
+  <div class="alert alert-primary">
+    {{ inforMessage }}
+  </div>
+ }
+ 
+<table class="table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>DOB</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (employee of employees; track employee.id) {
+      <tr>
+        <td>{{ employee.firstName }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>{{ employee.phoneNumber }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.dob }}</td>
+        <td>{{ employee.role }}</td>
+        <td>
+          <button (click)="onEdit(employee)" class="btn btn-primary me-2">Edit</button>
+          <button (click)="onDelete(employee.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="6">There are no employees yet. Start adding some!</td>
+      </tr>
+    }
+  </tbody>
+</table>
+  

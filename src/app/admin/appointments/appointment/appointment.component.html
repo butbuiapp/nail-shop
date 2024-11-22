@@ -1,0 +1,59 @@
+
+<!-- Appointment Information -->
+<div class="appointment-details">
+  <p>
+    <strong>Date:</strong> {{ (editingAppointment.date | date: 'MM/dd/yyyy') + ' ' + editingAppointment.time}}
+    <span class="ms-5">
+      <strong>Customer:</strong> 
+      {{ editingAppointment.customer.firstName + ' ' + editingAppointment.customer.lastName }}
+      ({{ appointment().customer.phoneNumber }})
+    </span>
+    <span class="ms-5">
+      <strong>Technician:</strong> 
+      {{ editingAppointment.technician.firstName + ' ' + editingAppointment.technician.lastName }}
+      ({{ appointment().technician.phoneNumber }})
+    </span>
+    <span class="ms-5">
+      <strong>Status:</strong> {{ editingAppointment.status }}
+    </span>
+  </p>
+  <p><strong>Notes:</strong> {{ editingAppointment.notes }}</p>
+  <div class="text-center">
+    <button class="btn btn-primary" (click)="toggleInvoice(editingAppointment.id)">
+      {{ showInvoiceMap[editingAppointment.id] ? 'Hide Invoice' : 'View Invoice' }}
+    </button>
+    @if (editingAppointment.status == AppointmentStatusEnum.BOOKED && !isRead) {
+        <button class="btn btn-primary ms-2" (click)="updateAppointment()">Update Appointment</button>
+        <button class="btn btn-secondary ms-2" (click)="cancelAppointment()">Cancel Appointment</button>
+        <button class="btn btn-info ms-2" (click)="completeAppointment()">Complete Appointment</button>
+    }
+  </div>
+ 
+</div>
+
+<!-- Collapsible Invoice Section -->
+<div *ngIf="showInvoiceMap[editingAppointment.id]" class="invoice-details">
+  <div class="card card-body">
+    <!-- Invoice Details -->
+    <div class="d-flex align-items-center justify-content-between">
+      <h5>Invoice Details</h5>
+      <p class="text-danger"><strong>Total Amount:</strong> {{ editingAppointment.invoice?.totalAmount | currency }}</p>
+                  
+    </div>
+    <p><strong>Issued Date:</strong> {{ editingAppointment.invoice?.issuedDate | date: 'short' }}</p>    
+    <p><strong>Status:</strong> {{ editingAppointment.invoice?.status }}</p>
+    <p *ngIf="editingAppointment.invoice?.paidDate"><strong>Paid Date:</strong> {{ editingAppointment.invoice?.paidDate | date: 'short' }}</p>
+    <div *ngIf="editingAppointment.invoice?.services">
+      <strong>Services:</strong>
+      <ul>
+        <li *ngFor="let service of editingAppointment.invoice?.services">{{ service.name }} - {{ service.price | currency }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+@if (isUpdating) {
+  <app-update-appointment [appointment]="editingAppointment" 
+      (cancel)="onCancel()"
+      (updated)="onUpdateCompleted()" />
+}

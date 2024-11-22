@@ -1,0 +1,11 @@
+label {
+  text-align: left;
+  display: block;
+  font-weight: bold;
+  margin-top: 5px;
+}
+small {
+  text-align: left;
+  display: block;
+  margin-top: 5px;
+}

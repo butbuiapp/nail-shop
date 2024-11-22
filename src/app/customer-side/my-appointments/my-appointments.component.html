@@ -1,0 +1,27 @@
+<section>
+    <div>
+      <h3 class="fw-normal mb-5" style="letter-spacing: 1px;">My Appointments</h3>
+
+    <!-- Error message display -->
+    @if (errorMessage) {
+      <div class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <div class="appointments-container">
+      <!-- Loop through each appointment -->
+      <div *ngIf="appointments?.length">
+        <div *ngFor="let appointment of appointments; trackBy: trackByAppointmentId" 
+        class="appointment-card mb-3 me-3"  [ngClass]="{'booked': isBooked(appointment.status)}">
+          <app-appointment-detail [appointment]="appointment" (cancel)="onCancelCompleted($event)"></app-appointment-detail>
+        </div>
+      </div>
+
+      <!-- Empty State Message -->
+      <div *ngIf="appointments.length === 0" class="no-appointments">
+        <p class="text-center">There are no appointments yet.</p>
+      </div>
+    </div>
+  </div>
+</section>

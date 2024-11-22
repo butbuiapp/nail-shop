@@ -1,0 +1,5 @@
+small, label {
+  text-align: left;
+  display: block; /* Ensures it takes up the full width */
+  width: 100%;
+}

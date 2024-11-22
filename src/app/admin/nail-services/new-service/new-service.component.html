@@ -1,0 +1,64 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+
+  <h2>
+    @if (editingService) {
+      Edit Nail Service
+    } @else {
+      Create Nail Service
+    } 
+  </h2>
+
+  <!-- Error message display -->
+   @if (errorMessage) {
+    <div class="alert alert-danger" [innerHTML]="errorMessage">
+    </div>
+   }
+  
+  <form [formGroup]="nailServiceForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Service Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" maxlength="50"/>
+      @if (nailServiceForm.get('name')?.invalid && nailServiceForm.get('name')?.touched) {
+        <div class="text-danger">
+          <small>Name is required.</small>
+        </div>
+      }    
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" id="price" formControlName="price" class="form-control" max="999"/>
+      @if (nailServiceForm.get('price')?.invalid && nailServiceForm.get('price')?.touched) {
+        <div class="text-danger">
+          <small *ngIf="nailServiceForm.get('price')?.errors?.['required']">Price is required.</small>
+          <small *ngIf="nailServiceForm.get('price')?.errors?.['pattern']">Price must contain only digits.</small>
+          <small *ngIf="nailServiceForm.get('price')?.errors?.['maxDigits']">Price must not be greater than 3 digits.</small>
+        </div>
+        }
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duration (min)</label>
+      <input type="number" id="duration" formControlName="duration" class="form-control" max="999"/>
+      @if (nailServiceForm.get('duration')?.invalid && nailServiceForm.get('duration')?.touched) {
+        <div class="text-danger">
+          <small *ngIf="nailServiceForm.get('duration')?.errors?.['required']">Duration is required.</small>
+          <small *ngIf="nailServiceForm.get('duration')?.errors?.['pattern']">Duration must contain only digits.</small>
+          <small *ngIf="nailServiceForm.get('duration')?.errors?.['maxDigits']">Duration must not be greater than 3 digits.</small>
+        </div>
+        }  
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+    
+    <div class="mt-3">
+      <button type="button" (click)="onCancel()" class="btn btn-secondary me-2">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="nailServiceForm.invalid">Submit</button>
+    </div>
+    
+  </form>
+</dialog>

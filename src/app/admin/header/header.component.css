@@ -1,0 +1,28 @@
+li {
+  font-weight: bold;
+  font-size: large;
+}
+
+.header-nav-container {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Adds space between header and nav */
+  justify-content: space-between; /* Adjusts space between header and nav */
+  background-color: #fdb7c2;
+}
+
+.navbar {
+  flex-grow: 1; /* Allows navbar to take available space */
+}
+
+.nav-item .nav-link {
+  padding: 10px;
+  /* font-weight: bold; */
+  color: #f61491 !important;
+}
+
+.nav-item .nav-link:hover {  
+  color: #f61491; /* Change text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow */
+  transform: translateY(-2px); /* Slightly lifts the item */
+}

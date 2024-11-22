@@ -1,0 +1,31 @@
+
+.sidebar {
+  width: 250px; /* Adjust width as needed */
+  height: 100%;
+  
+  padding-top: 1rem;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  font-size: larger;
+  
+}
+
+.nav-item .nav-link {
+  padding: 10px;
+  font-weight: bold;
+  color: #f61491 !important;
+}
+
+.nav-item .nav-link:hover {  
+  color: #f61491; /* Change text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow */
+  transform: translateY(-2px); /* Slightly lifts the item */
+}
+
+.bg-navbar {
+  /* background-color: #ffb7ce; */
+  background-color: #fdb7c2;
+}

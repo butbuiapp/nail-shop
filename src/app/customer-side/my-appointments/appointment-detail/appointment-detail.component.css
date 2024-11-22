@@ -1,0 +1,14 @@
+
+.appointment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.invoice-details {
+  margin-top: 1rem;
+}
+
+p {
+  margin: 0 !important;
+}

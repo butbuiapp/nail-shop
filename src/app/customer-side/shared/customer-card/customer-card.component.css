@@ -1,0 +1,7 @@
+.customer-header {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  height: 100%;
+}
+

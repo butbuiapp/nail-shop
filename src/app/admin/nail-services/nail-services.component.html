@@ -1,0 +1,54 @@
+<h2>Service Management</h2>
+
+@if (isAddingService) {
+  <app-new-service 
+    (close)="onCloseAddService()" 
+    (serviceAdded)="onServiceAdded()"
+    [editingService]="editingService" />
+}
+
+<button (click)="onStartAddService()" class="btn btn-primary font-weight-bold">Add new service</button>
+<br/><br/>
+
+ <!-- Error message display -->
+ @if (errorMessage) {
+  <div class="alert alert-danger" [innerHTML]="errorMessage">
+  </div>
+ }
+
+ @if (inforMessage) {
+  <div class="alert alert-primary">
+    {{ inforMessage }}
+  </div>
+ }
+ 
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Duration (min)</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (nailService of nailServices; track nailService.id) {
+      <tr>
+        <td>{{ nailService.name }}</td>
+        <td>{{ nailService.price | currency }}</td>
+        <td>{{ nailService.duration }}</td>
+        <td>{{ nailService.description }}</td>
+        <td>
+          <button (click)="onEditService(nailService)" class="btn btn-primary me-2">Edit</button>
+          <button (click)="onDeleteService(nailService.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="5">There are no services yet. Start adding some!</td>
+      </tr>
+    }
+  </tbody>
+</table>
+  
