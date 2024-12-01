@@ -8,7 +8,7 @@ li {
   align-items: center;
   gap: 50px; /* Adds space between header and nav */
   justify-content: space-between; /* Adjusts space between header and nav */
-  background-color: #fdb7c2;
+  /* background-color: #fdb7c2; */
 }
 
 .navbar {

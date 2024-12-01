@@ -4,9 +4,11 @@
 </div>
 <br/>
 
-<div class="mb-3">
+<div class="d-flex mb-3">
   <strong>Search by date:</strong> 
-  <input type="date" id="appointmentDate" [formControl]="appointmentDate" class="ms-2"/>
+  <div>
+    <input type="date" id="appointmentDate" [formControl]="appointmentDate" class="ms-2"/>
+  </div>  
   <button type="button" class="btn btn-primary ms-2" (click)="onSearch()">Search</button>
 </div>
 

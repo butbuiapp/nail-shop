@@ -31,6 +31,7 @@ export class CustomerRegistrationComponent implements OnInit {
 
   onSubmit() {
     this.errorMessage = null; 
+    this.infoMessage = null;
     if (this.customerForm.valid) {
       const customer = this.customerForm.value;
       // save customer
