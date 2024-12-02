@@ -5,21 +5,23 @@ import { DatePipe } from '@angular/common';
 import { AppointmentStatusEnum } from '../../../model/appointment.model';
 import { AppointmentService } from '../../../service/appointment.service';
 import { UpdateAppointmentComponent } from "../update-appointment/update-appointment.component";
+import { PrintReceiptComponent } from '../../print-receipt/print-receipt.component';
 
 @Component({
   selector: 'app-appointment',
   standalone: true,
-  imports: [CommonModule, DatePipe, UpdateAppointmentComponent],
+  imports: [CommonModule, DatePipe, UpdateAppointmentComponent, PrintReceiptComponent],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.css'
 })
 export class AppointmentComponent implements OnInit, OnChanges {
   // input
   appointment = input.required<AppointmentResponse>();
-  @Input() isRead: boolean = false;
+  @Input() isReadOnly: boolean = false;
   
   errorMessage : string | null = null;
   isUpdating: boolean = false;
+  isPrintingReceipt: boolean = false;
   editingAppointment: AppointmentResponse = {
       id: 0,
       date: '',
@@ -91,6 +93,7 @@ export class AppointmentComponent implements OnInit, OnChanges {
 
   onCancel() {
     this.isUpdating = false;
+    this.isPrintingReceipt = false;
   }
 
   onUpdateCompleted() {
@@ -100,7 +103,7 @@ export class AppointmentComponent implements OnInit, OnChanges {
         this.isUpdating = false;
       },
       (error) => {
-
+        this.errorMessage = 'Failed to update appointment. Please try again later.';
       }
     );
   }
@@ -116,5 +119,14 @@ export class AppointmentComponent implements OnInit, OnChanges {
         }
       );
     }
+  }
+
+  printReceipt() {
+    this.editingAppointment = this.appointment();
+    this.isPrintingReceipt = true;
+  }
+
+  onPrintCompleted() {
+    this.isPrintingReceipt = false;
   }
 }

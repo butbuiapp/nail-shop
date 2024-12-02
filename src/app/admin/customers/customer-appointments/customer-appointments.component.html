@@ -13,7 +13,7 @@
   <div *ngIf="appointments?.length">
     <div *ngFor="let appointment of appointments; trackBy: trackByAppointmentId" 
       class="appointment-card mb-3"  [ngClass]="{'booked': isBooked(appointment.status)}">
-      <app-appointment [appointment]="appointment" [isRead]="isRead"></app-appointment>
+      <app-appointment [appointment]="appointment" [isReadOnly]="isReadOnly"></app-appointment>
     </div>
   </div>
 

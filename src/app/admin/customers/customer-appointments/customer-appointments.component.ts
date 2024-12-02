@@ -20,7 +20,7 @@ export class CustomerAppointmentsComponent implements OnInit {
 
   firstName: string = '';
   lastName: string = '';
-  isRead: boolean = true;
+  isReadOnly: boolean = true;
   
   private activatedRoute = inject(ActivatedRoute);
   private appointmentService = inject(AppointmentService);

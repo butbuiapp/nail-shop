@@ -1,0 +1,35 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+  <div class="card-body" id="print-content">
+    <!-- Invoice Details -->
+    <div class="text-center">
+      <h3>Receipt</h3>
+    </div>
+    <p><strong>Issued Date:</strong> {{ issuedDateTime | date: 'short' }}</p> 
+    <hr/>    
+    <div>
+      <strong>Customer:</strong> 
+      {{ appointment().customer.firstName + ' ' + appointment().customer.lastName }}
+      ({{ appointment().customer.phoneNumber }})
+    </div>
+    <strong>Appointment Date:</strong> {{ (appointment().date | date: 'MM/dd/yyyy') + ' ' + appointment().time | date: 'short'}}
+    
+    <div>
+      <strong>Technician:</strong> 
+      {{ appointment().technician.firstName + ' ' + appointment().technician.lastName }}
+      ({{ appointment().technician.phoneNumber }})
+    </div>
+    <div *ngIf="appointment().invoice?.services">
+      <strong>Services:</strong>
+      <ul>
+        <li *ngFor="let service of appointment().invoice?.services">{{ service.name }} - {{ service.price | currency }}</li>
+      </ul>
+    </div>
+    <p class="text-danger"><strong>Total Amount:</strong> {{ appointment().invoice?.totalAmount | currency }}</p>
+  </div>
+
+  <div class="mt-3" id="print-button">
+    <button type="button" (click)="onCancel()" class="btn btn-secondary me-2">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="printReceipt()">Print</button>
+  </div>
+</dialog>

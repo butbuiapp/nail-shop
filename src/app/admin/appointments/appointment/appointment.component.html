@@ -22,10 +22,13 @@
     <button class="btn btn-primary" (click)="toggleInvoice(editingAppointment.id)">
       {{ showInvoiceMap[editingAppointment.id] ? 'Hide Invoice' : 'View Invoice' }}
     </button>
-    @if (editingAppointment.status == AppointmentStatusEnum.BOOKED && !isRead) {
+    @if (editingAppointment.status == AppointmentStatusEnum.BOOKED && !isReadOnly) {
         <button class="btn btn-primary ms-2" (click)="updateAppointment()">Update Appointment</button>
         <button class="btn btn-secondary ms-2" (click)="cancelAppointment()">Cancel Appointment</button>
         <button class="btn btn-info ms-2" (click)="completeAppointment()">Complete Appointment</button>
+    }
+    @if (editingAppointment.status == AppointmentStatusEnum.DONE) {
+      <button class="btn btn-success ms-2" (click)="printReceipt()">Print Receipt</button>
     }
   </div>
  
@@ -57,3 +60,9 @@
       (cancel)="onCancel()"
       (updated)="onUpdateCompleted()" />
 }
+@if (isPrintingReceipt) {
+  <app-print-receipt [appointment]="editingAppointment" 
+      (close)="onCancel()"
+      (updated)="onPrintCompleted()" />
+}
+
